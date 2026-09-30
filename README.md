@@ -22,9 +22,6 @@ No build step. Open `index.html` in a browser, or serve the folder:
 python -m http.server 8000   # then open http://localhost:8000
 ```
 
-## Publish on GitHub Pages
-1. Create a repository and push these files.
-2. Go to **Settings → Pages**, choose the `main` branch and `/ (root)`, then save.
 
 ## Project structure
 ```
@@ -34,9 +31,6 @@ js/data.js      lessons and quizzes (add a language here)
 js/highlight.js syntax highlighter
 js/app.js       navigation, editor, quiz, progress, analyzer
 ```
-
-## Add a new language
-Add an object to `COURSES` in `js/data.js` with `id`, `name`, `ext`, `group`, `lessons` and `quiz`. The menu and editor pick it up automatically.
 
 ## Roadmap (maps to the SRS)
 - Login, roles and instructor/admin panels (FR-1 to FR-3, FR-18, FR-19) need a backend such as Node.js + a database
