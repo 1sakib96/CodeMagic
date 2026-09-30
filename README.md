@@ -16,11 +16,6 @@ Project-Based Learning platform by **UGVcoders** "Sayma, Sakib, Sanoy, Arfa".
 - One quiz per language with an achievement badge
 - Progress bar saved in the browser (`localStorage`)
 
-## Run it
-No build step. Open `index.html` in a browser, or serve the folder:
-```bash
-python -m http.server 8000   # then open http://localhost:8000
-```
 
 
 ## Project structure
