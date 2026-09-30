@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeMagic – Learn programming with smart feedback</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo">Code<span>Magic</span></div>
+    <nav id="nav" aria-label="Languages"></nav>
+    <div class="total"><small>Overall progress</small><div class="prog"><i id="bar"></i></div><b id="pct">0%</b></div>
+  </aside>
+  <main>
+    <header class="chead">
+      <div class="chip" id="chip"></div>
+      <div><h1 id="ctitle"></h1><p id="cdesc"></p></div>
+      <div class="steps" id="steps" aria-label="Lessons"></div>
+    </header>
+    <div class="cols">
+      <section id="lessons" class="pane"></section>
+      <section class="lab pane">
+        <div class="bar">
+          <span class="dots"><i></i><i></i><i></i></span><b id="fname">main.c</b>
+          <select id="lang" aria-label="Editor language"></select>
+          <button id="run">▶ Run</button><button id="analyze" class="alt">✦ Analyze</button>
+        </div>
+        <div class="ed"><div id="ln" aria-hidden="true"></div>
+          <div class="cw"><pre id="hl" aria-hidden="true"></pre><textarea id="code" spellcheck="false" aria-label="Code editor" wrap="off"></textarea></div></div>
+        <div class="out"><h3>Output</h3><pre id="output">Press Run. JavaScript runs here; HTML and CSS show a live preview.</pre><iframe id="preview" title="Preview" sandbox="allow-scripts"></iframe></div>
+        <div class="fb"><h3>Analyzer feedback</h3><ul id="feedback"><li>Press “Analyze” to get suggestions.</li></ul></div>
+      </section>
+    </div>
+    <section id="quiz" class="pane"></section>
+  </main>
+</div>
+<script src="js/data.js"></script>
+<script src="js/highlight.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
