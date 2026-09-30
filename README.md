@@ -1,7 +1,7 @@
 # CodeMagic
 
 A programming-language learning platform with an Intelligent Code Analyzer.
-Project-Based Learning prototype by **UGVcoders AI** (Sayma, Sakib, Sanoy, Arfa).
+Project-Based Learning platform by **UGVcoders AI** (Sayma, Sakib, Sanoy, Arfa).
 
 ## Features (v0.1)
 - Redesigned dashboard: colored language sidebar, one lesson at a time, step tracker, and a "Your turn" task per lesson
