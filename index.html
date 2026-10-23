@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111827">
+<meta name="description" content="Learn programming step by step with detailed lessons, examples, quizzes, coding practice and projects.">
+<title>CodeMagic — Learn. Practice. Build.</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
+</head><body>
+<div class="app-shell">
+<aside class="sidebar" id="sidebar"><a class="brand" href="#" data-view="dashboard"><span class="brand-mark">{ }</span><span>Code<span class="brand-accent">Path</span><small>LEARN · PRACTICE · BUILD</small></span></a>
+<div class="nav-label">LEARNING</div><nav class="nav"><button class="nav-item active" data-view="dashboard">⌂ <span>Overview</span></button><button class="nav-item" data-view="courses">▤ <span>All courses</span><b id="courseCount">5</b></button><button class="nav-item" data-view="playground">⌘ <span>Code playground</span></button><button class="nav-item" data-view="challenges">✳ <span>Practice & quizzes</span></button><button class="nav-item" data-view="projects">▧ <span>Projects</span></button></nav>
+<div class="nav-label">YOUR SPACE</div><nav class="nav"><button class="nav-item" data-view="notes">▱ <span>My notes</span></button><button class="nav-item" data-view="bookmarks">♡ <span>Bookmarks</span></button><button class="nav-item" data-view="planner">◷ <span>Study planner</span></button></nav>
+<div class="sidebar-bottom"><div class="side-tip"><span>✦</span><strong>Keep showing up.</strong><p>Small practice sessions turn into real skills.</p><button data-view="planner">Plan a session →</button></div><div class="profile"><div class="avatar">C</div><div><strong>My learning space</strong><small>Saved on this device</small></div></div></div></aside>
+<main class="main-area"><header class="topbar"><button class="mobile-menu" id="mobileMenu" aria-label="Toggle navigation">☰</button><div class="crumb">CodeMagic <span>/</span> <strong id="pageCrumb">Overview</strong></div><div class="top-actions"><label class="search"><span>⌕</span><input id="globalSearch" placeholder="Search lessons or topics…" aria-label="Search lessons or topics"><kbd>Ctrl K</kbd></label><button class="button secondary auth-trigger" id="authOpen">Sign in</button><button class="icon-button" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">☼</button></div></header><div class="content" id="content" aria-live="polite"></div></main></div>
+<div class="auth-backdrop" id="authBackdrop" hidden>
+<section class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+<button class="auth-close" id="authClose" aria-label="Close sign in">×</button>
+<div class="eyebrow">YOUR LEARNING, EVERYWHERE</div><h2 id="authTitle">Sign in to CodeMagic</h2>
+<p class="auth-description">Create an account or sign in to sync lesson progress and quiz scores across devices.</p>
+<form id="authForm"><label for="authEmail">Email address</label><input class="field" id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com"><label for="authPassword">Password</label><input class="field" id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters"><div class="auth-actions"><button class="button primary" type="submit" id="authSubmit">Sign in</button><button class="button secondary" type="button" id="authModeToggle">Create account</button></div></form>
+<button class="text-button auth-reset" id="authReset" type="button">Send password reset email</button><div class="auth-message" id="authMessage" role="status"></div>
+<div class="auth-account" id="authAccount" hidden><p id="authUserEmail"></p><button class="button secondary" id="authSignOut" type="button">Sign out</button></div>
+</section></div>
+<div class="toast" id="toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="app.js"></script></body></html>
