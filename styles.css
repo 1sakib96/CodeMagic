@@ -269,3 +269,26 @@ button,input,textarea,select{max-width:100%}
   .form-grid,.course-grid,.resource-grid,.public-feature-grid,.public-course-grid{grid-template-columns:minmax(0,1fr)}
   .profile-sidebar-shortcut{margin-top:10px}
 }
+
+
+/* Motion-only polish: existing layout, colors and controls stay unchanged. */
+.content.view-enter{animation:cmViewEnter .42s cubic-bezier(.2,.75,.25,1) both}
+@keyframes cmViewEnter{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+.button,.icon-button,.nav-item,.course-card,.stat-card,.panel,.resource-card,.challenge-card{transition:transform .22s cubic-bezier(.2,.75,.25,1),box-shadow .22s ease,border-color .22s ease,background-color .22s ease}
+button:active{transform:scale(.97)}button.tap-pop{animation:cmTapPop .26s ease}@keyframes cmTapPop{0%{transform:scale(1)}45%{transform:scale(.95)}100%{transform:scale(1)}}
+.course-card:hover,.stat-card:hover,.resource-card:hover,.challenge-card:hover{transform:translateY(-4px);box-shadow:0 15px 34px rgba(38,67,130,.11)}
+.auth-backdrop:not([hidden]) .auth-dialog{animation:cmAuthIn .34s cubic-bezier(.18,.8,.25,1) both}@keyframes cmAuthIn{from{opacity:0;transform:translateY(18px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+.welcome-transition{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:20px;background:rgba(20,32,68,.38);backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none}
+.welcome-transition.is-active{visibility:visible;pointer-events:auto;animation:cmOverlayIn .24s ease forwards}
+.welcome-transition-card{position:relative;isolation:isolate;overflow:hidden;width:min(440px,100%);padding:34px 30px 25px;text-align:center;border:1px solid rgba(255,255,255,.85);border-radius:25px;background:linear-gradient(145deg,#fff 0%,#f5f7ff 58%,#f1fbff 100%);box-shadow:0 25px 90px rgba(18,32,85,.25);transform:translateY(20px) scale(.96);opacity:0}
+.is-active .welcome-transition-card{animation:cmWelcomeCard .62s cubic-bezier(.16,.85,.25,1) .06s forwards}
+.welcome-mascot{position:relative;z-index:1;width:108px;height:108px;object-fit:contain;animation:cmMascotFloat 1.6s ease-in-out infinite alternate}
+.welcome-kicker{position:relative;z-index:1;margin-top:13px;color:#4568d9;font-size:9px;font-weight:800;letter-spacing:2px}
+.welcome-transition-card h2{position:relative;z-index:1;margin:8px 0 4px;color:#26365f;font:800 clamp(25px,5vw,31px)/1.2 'Plus Jakarta Sans',Inter,sans-serif;letter-spacing:-1px}
+.welcome-transition-card p{position:relative;z-index:1;margin:0;color:#74809b;font-size:12px}
+.welcome-code-words{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;gap:13px;margin:19px 0 16px;color:#405bd0;font-size:11px;font-weight:800;letter-spacing:.4px}
+.welcome-code-words span{animation:cmWordRise .48s both}.welcome-code-words span:nth-of-type(2){animation-delay:.12s}.welcome-code-words span:nth-of-type(3){animation-delay:.24s}.welcome-code-words i{color:#25bfc1;font-style:normal;font-size:10px}
+.welcome-progress{height:4px;overflow:hidden;border-radius:99px;background:#e6ebfa}.welcome-progress span{display:block;width:100%;height:100%;border-radius:99px;background:linear-gradient(90deg,#315ceb,#7450df,#20bfc1);transform:scaleX(0);transform-origin:left}.is-active .welcome-progress span{animation:cmProgress 1.55s ease .15s forwards}
+.welcome-orbit{position:absolute;z-index:0;border:1px solid rgba(78,110,225,.12);border-radius:50%;pointer-events:none}.orbit-one{width:260px;height:260px;left:-125px;top:-155px}.orbit-two{width:220px;height:220px;right:-125px;bottom:-125px}
+@keyframes cmOverlayIn{to{opacity:1}}@keyframes cmWelcomeCard{to{opacity:1;transform:translateY(0) scale(1)}}@keyframes cmMascotFloat{from{transform:translateY(2px) rotate(-2deg)}to{transform:translateY(-7px) rotate(2deg)}}@keyframes cmWordRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes cmProgress{to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.content.view-enter,.auth-dialog,.welcome-transition,.welcome-transition *,.tap-pop{animation:none!important;transition:none!important}.welcome-transition.is-active{opacity:1}.welcome-transition.is-active .welcome-transition-card{opacity:1;transform:none}}
