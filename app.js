@@ -495,23 +495,110 @@ async function runCode(){
    if(runId!==window.__codeMagicRunId)return;
    showProgramOutput(output||'Program finished successfully with no printed output.');setRunStatus('FINISHED');return;
   }
-  const configs={c:{language:'c',filename:'main.c'},cpp:{language:'c++',filename:'main.cpp'},java:{language:'java',filename:'Main.java'}};
-  const config=configs[lang];if(!config)throw new Error('Unsupported language: '+lang);
-  showProgramOutput('Sending code to the secure online compiler…');
-  const controller=new AbortController();
-  const timeout=setTimeout(()=>controller.abort(),45000);
-  let response;
-  try{
-   response=await fetch(new URL('/api/run-code',window.location.origin),{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({language:config.language,filename:config.filename,code,stdin:input})});
-  }finally{clearTimeout(timeout);}
-  let result={};try{result=await response.json();}catch(e){}
-  if(!response.ok){const detail=result.error||result.message;if(response.status===404)throw new Error('The compiler backend was not found. If this site is hosted on GitHub Pages, C, C++ and Java cannot run there. Deploy this project to Cloudflare Pages and add the ONLINECOMPILER_API_KEY secret.');throw new Error(detail||('Code runner returned HTTP '+response.status+'.'));}
-  if(runId!==window.__codeMagicRunId)return;
-  showProgramOutput(formatCompilerOutput(result));
-  const compileFailed=result.compile&&result.compile.code!==0;
-  const runFailed=result.run&&result.run.code!==0;
-  const runStatus=result.run?.status;
-  setRunStatus(compileFailed?'COMPILE ERROR':runStatus==='TO'?'TIMEOUT':runStatus==='OL'?'OUTPUT LIMIT':runFailed?'ERROR':(!result.run&&result.message)?'ERROR':'FINISHED');
+  
+  const configs = {
+    c: "c",
+    cpp: "cpp",
+    java: "java"
+  };
+
+  const language = configs[lang];
+  if (!language) throw new Error("Unsupported language: " + lang);
+
+  const worker = "https://codemagic-compiler.sakibahsanhira2002.workers.dev";
+
+  showProgramOutput("Sending code to compiler...");
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 45000);
+
+  try {
+    const response = await fetch(worker + "/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({
+        language: language,
+        source_code: code,
+        stdin: input
+      })
+    });
+
+    const submission = await response.json();
+
+    if (!response.ok) {
+      throw new Error(submission.error || "Compiler submission failed.");
+    }
+
+    if (!submission.token) {
+      throw new Error("Compiler did not return a submission token.");
+    }
+
+    let result = null;
+
+    for (let i = 0; i < 35; i++) {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  if (runId !== window.__codeMagicRunId) return;
+
+  const check = await fetch(
+    worker + "/result/" + encodeURIComponent(submission.token),
+    { signal: controller.signal }
+  );
+
+      result = await check.json();
+
+      if (!check.ok) {
+        throw new Error(result.error || "Could not get compiler result.");
+      }
+
+      if (result.status && result.status.id > 2) break;
+    }
+
+    if (!result || !result.status || result.status.id <= 2) {
+      throw new Error("Execution is taking too long. Please try again.");
+    }
+
+    if (runId !== window.__codeMagicRunId) return;
+
+    const output = [];
+
+    if (result.compile_output) {
+      output.push("COMPILER:\n" + result.compile_output);
+    }
+
+    if (result.stdout) {
+      output.push(result.stdout);
+    }
+
+    if (result.stderr) {
+      output.push("ERROR:\n" + result.stderr);
+    }
+
+    if (result.message) {
+      output.push(result.message);
+    }
+
+    showProgramOutput(
+      output.join("\n\n") ||
+      (result.status.id === 3
+        ? "Program finished successfully with no output."
+        : result.status.description || "Program finished.")
+    );
+
+    if (result.status.id === 3) {
+      setRunStatus("FINISHED");
+    } else if (result.status.id === 5) {
+      setRunStatus("TIMEOUT");
+    } else if (result.status.id === 6) {
+      setRunStatus("COMPILE ERROR");
+    } else {
+      setRunStatus("ERROR");
+    }
+
+  } finally {
+    clearTimeout(timeout);
+  }
  }catch(err){
   if(runId!==window.__codeMagicRunId)return;
   const message=err.name==='AbortError'?'The online compiler took too long and the request timed out. Try a smaller program.':(err.message||String(err));
